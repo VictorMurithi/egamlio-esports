@@ -70,7 +70,7 @@ const useAuth = () => {
         localStorage.removeItem('firstName');
         localStorage.removeItem('lastName');
         setUser(null);
-        router.push('/');
+        router.push('/index-3');
     };
 
     return { user, login, logout };
