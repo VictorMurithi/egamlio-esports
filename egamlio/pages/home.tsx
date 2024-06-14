@@ -52,6 +52,7 @@ const Home = () => {
                                         <p>We're so excited to have you here!</p>
                                     </div>
                                     <button className='cmn-btn mt-40 w-100' onClick={() => router.push('/customers')}> Add Customers</button>
+                                    <button className="cmn-btn mt-40 w-100" onClick={() => router.push('/customer-list')}> Customer List</button>
                                     <button className="cmn-btn mt-40 w-100" onClick={logout}>Logout</button>
                                 </div>
                             </div>
