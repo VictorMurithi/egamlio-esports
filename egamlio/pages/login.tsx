@@ -1,11 +1,27 @@
-import Head from "next/head";
-import Link from "next/link";
+import { useState } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import useAuth from '../components/hooks/useAuth';
 
-const login = () => {
+const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const { login } = useAuth();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        await login(email, password);
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <>
             <Head>
-            <title>Egamlio - Esports and Gaming Courses Website NextJS Template</title>
+                <title>Egamlio - Esports and Gaming Courses Website NextJS Template</title>
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" />
             </Head>
             <section className="login-reg">
@@ -34,20 +50,38 @@ const login = () => {
                                             <h4>Welcome Back!</h4>
                                             <p>We're so excited to see you again! Log In to your Egamlio Account!</p>
                                         </div>
-                                        <form action="#">
+                                        <form onSubmit={handleSubmit}>
                                             <div className="row">
                                                 <div className="col-12">
                                                     <div className="single-input">
                                                         <label htmlFor="email">Email Address</label>
                                                         <div className="input-box">
-                                                            <input type="text" id="email" placeholder="Enter Your Email" />
+                                                            <input
+                                                                type="text"
+                                                                id="email"
+                                                                placeholder="Enter Your Email"
+                                                                value={email}
+                                                                onChange={(e) => setEmail(e.target.value)}
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div className="single-input">
                                                         <label htmlFor="passInput">Password</label>
                                                         <div className="input-box">
-                                                            <input type="text" id="passInput" placeholder="Enter Your Password" />
-                                                            <img className="showPass" src="/images/icon/show-hide.png" alt="icon" />
+                                                            <input
+                                                                type={showPassword ? 'text' : 'password'}
+                                                                id="passInput"
+                                                                placeholder="Enter Your Password"
+                                                                value={password}
+                                                                onChange={(e) => setPassword(e.target.value)}
+                                                            />
+                                                            <img
+                                                                className="showPass"
+                                                                src="/images/icon/show-hide.png"
+                                                                alt="icon"
+                                                                onClick={togglePasswordVisibility}
+                                                                style={{ cursor: 'pointer' }}
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div className="remember-me">
@@ -66,7 +100,7 @@ const login = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button className="cmn-btn mt-40 w-100">Login</button>
+                                            <button className="cmn-btn mt-40 w-100" type="submit">Login</button>
                                         </form>
                                         <div className="reg-with">
                                             <div className="or">
@@ -95,4 +129,4 @@ const login = () => {
     );
 };
 
-export default login;
+export default Login;
