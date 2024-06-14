@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import Swal from 'sweetalert2';
@@ -16,6 +17,7 @@ interface Customer {
 
 const CustomerList = () => {
   const { user } = useAuth();
+  const router = useRouter();
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -63,6 +65,10 @@ const CustomerList = () => {
     );
   });
 
+  const handleRowClick = (customer_id: string) => {
+    router.push(`/customer/${customer_id}`);
+  };
+
   return (
     <>
       <Head>
@@ -100,7 +106,7 @@ const CustomerList = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <div className="table-responsive">
-                  <table className="table table-striped table-bordered bg-white w-96">
+                  <table className="table table-striped table-bordered bg-white">
                     <thead className="thead-dark">
                       <tr>
                         <th scope="col">First Name</th>
@@ -114,7 +120,7 @@ const CustomerList = () => {
                     <tbody>
                       {filteredCustomers.length > 0 ? (
                         filteredCustomers.map((customer) => (
-                          <tr key={customer.customer_id}>
+                          <tr key={customer.customer_id} onClick={() => handleRowClick(customer.customer_id)}>
                             <td>{customer.first_name}</td>
                             <td>{customer.other_names}</td>
                             <td>{customer.gender}</td>
