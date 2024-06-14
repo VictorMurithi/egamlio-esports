@@ -18,11 +18,13 @@ const CreateCustomerForm = () => {
     description: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
+  // Handle form input changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -99,7 +101,7 @@ const CreateCustomerForm = () => {
             <div className="row pt-120 d-flex justify-content-center">
               <div className="col-lg-6">
                 <form onSubmit={handleSubmit} className="create-customer-form">
-                  <h4 className="text-center mb-3 ">Create New Customer</h4>
+                  <h4 className="text-center mb-3">Create New Customer</h4>
                   <div className="form-group mb-3">
                     <input
                       type="text"
